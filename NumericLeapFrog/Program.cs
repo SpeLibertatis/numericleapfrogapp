@@ -3,11 +3,13 @@ using Microsoft.Extensions.Logging;
 using NumericLeapFrog.Domain.BusinessLogic;
 using NumericLeapFrog.Domain.Models;
 using NumericLeapFrog.Infrastructure.Abstractions;
+using NumericLeapFrog.Infrastructure.Console;
 using NumericLeapFrog.Infrastructure.Logging;
 using NumericLeapFrog.Infrastructure.Time;
 using NumericLeapFrog.UI;
+using DomainSR = NumericLeapFrog.Domain.Resources.SR;
 
-namespace NumericLeapFrog.Composition;
+namespace NumericLeapFrog;
 
 internal static class Program
 {
@@ -33,7 +35,7 @@ internal static class Program
         });
 
         // Infrastructure
-        services.AddSingleton<IConsole, Infrastructure.Console.SystemConsole>();
+        services.AddSingleton<IConsole, SystemConsole>();
         services.AddSingleton<IDelay, ThreadDelay>();
         services.AddSingleton<Typewriter>();
         services.AddSingleton<IStrings, ResourceStrings>();
@@ -45,12 +47,12 @@ internal static class Program
 
         var provider = services.BuildServiceProvider();
         var logger = provider.GetRequiredService<ILogger>();
-        logger.LogInformation("Application starting");
+        logger.LogInformation(DomainSR.AppStarting);
 
         var runner = provider.GetRequiredService<IGameRunner>();
         runner.Run();
 
-        logger.LogInformation("Application exiting");
+        logger.LogInformation(DomainSR.AppExiting);
         provider.GetRequiredService<IGameUI>().PauseAtEnd();
     }
 }

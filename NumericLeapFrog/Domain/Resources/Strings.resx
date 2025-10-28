@@ -56,34 +56,25 @@
  <resheader name="writer">
  <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
  </resheader>
- <data name="Welcome" xml:space="preserve">
- <value>Welcome to Numeric Leap Frog.</value>
+ <data name="LogTargetGenerated" xml:space="preserve">
+ <value>Target generated</value>
  </data>
- <data name="Instructions1" xml:space="preserve">
- <value>Goal is to keep guessing numbers to guess what the computer picked.</value>
+ <data name="LogInvalidInput" xml:space="preserve">
+ <value>Invalid input provided by user</value>
  </data>
- <data name="Instructions2" xml:space="preserve">
- <value>Each guess will be added to the last. If you come within 3 of the number you win. Don't go over.</value>
+ <data name="LogUserGuessReceivedTemplate" xml:space="preserve">
+ <value>User guess received: {Guess}</value>
  </data>
- <data name="PromptGuess" xml:space="preserve">
- <value>Guess a number: </value>
+ <data name="LogOutcomeDebugTemplate" xml:space="preserve">
+ <value>Outcome: {Outcome}, Total: {Total}, Diff: {Diff}, Attempts: {Attempts}</value>
  </data>
- <data name="InvalidNumber" xml:space="preserve">
- <value>Please enter a valid whole number.</value>
+ <data name="LogFinishedOutcomeTemplate" xml:space="preserve">
+ <value>Game finished with outcome {Outcome}</value>
  </data>
- <data name="WinMessage" xml:space="preserve">
- <value>You're a winner!</value>
+ <data name="AppStarting" xml:space="preserve">
+ <value>Application starting</value>
  </data>
- <data name="LoseMessage" xml:space="preserve">
- <value>I'm sorry you lost. Come back soon and play again!</value>
- </data>
- <data name="ContinueMessage" xml:space="preserve">
- <value>Not quite there yet, keep guessing.</value>
- </data>
- <data name="ContinuePrompt" xml:space="preserve">
- <value>Press enter to continue.</value>
- </data>
- <data name="TotalSoFar" xml:space="preserve">
- <value>Your total so far is: {0}</value>
+ <data name="AppExiting" xml:space="preserve">
+ <value>Application exiting</value>
  </data>
 </root>

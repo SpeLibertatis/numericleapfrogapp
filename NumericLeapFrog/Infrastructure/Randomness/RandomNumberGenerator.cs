@@ -1,4 +1,4 @@
-﻿namespace NumericLeapFrog.Infrastructure.Randomness;
+namespace NumericLeapFrog.Infrastructure.Randomness;
 
 /// <summary>
 ///     Pseudorandom number generator implementation using <see cref="Random" />.
@@ -10,8 +10,8 @@ public sealed class RandomNumberGenerator : IRandomNumberGenerator
     /// <inheritdoc />
     public int NextInclusive(int minInclusive, int maxInclusive)
     {
-        return maxInclusive < minInclusive ? 
-            throw new ArgumentOutOfRangeException(nameof(maxInclusive)) :
-            _random.Next(minInclusive, checked(maxInclusive + 1));
+        return maxInclusive < minInclusive
+            ? throw new ArgumentOutOfRangeException(nameof(maxInclusive))
+            : _random.Next(minInclusive, checked(maxInclusive + 1));
     }
 }

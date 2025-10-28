@@ -1,65 +1,71 @@
 using Microsoft.Extensions.Logging;
 using NumericLeapFrog.Domain.Models;
 using NumericLeapFrog.UI;
+using static NumericLeapFrog.Domain.Resources.SR;
 
 namespace NumericLeapFrog.Domain.BusinessLogic;
 
-public sealed class GameRunner : IGameRunner
+/// <summary>
+/// Orchestrates the Numeric Leap Frog game flow.
+/// </summary>
+/// <param name="ui">The user interface used to display messages and read input.</param>
+/// <param name="rng">Random number generator used to select the game target.</param>
+/// <param name="options">Game configuration options (target range, thresholds, etc.).</param>
+/// <param name="logger">Logger for game lifecycle and diagnostic events.</param>
+public sealed class GameRunner(IGameUI ui, IRandomNumberGenerator rng, GameOptions options, ILogger logger)
+    : IGameRunner
 {
- private readonly IGameUI _ui;
- private readonly IRandomNumberGenerator _rng;
- private readonly GameOptions _options;
- private readonly ILogger _logger;
+    /// <summary>
+    /// Executes the game by generating a target, greeting the player, showing instructions,
+    /// and running the main game loop until completion.
+    /// </summary>
+    public void Run()
+    {
+        var target = rng.Next(options.TargetMin, options.TargetMax);
+        var game = new LeapFrogGame(target, options);
+        logger.LogInformation(LogTargetGenerated);
 
- public GameRunner(IGameUI ui, IRandomNumberGenerator rng, GameOptions options, ILogger logger)
- {
- _ui = ui;
- _rng = rng;
- _options = options;
- _logger = logger;
- }
+        ui.ShowGreeting();
+        ui.ShowInstructions();
+        RunGameLoop(game);
+    }
 
- public void Run()
- {
- var target = _rng.Next(_options.TargetMin, _options.TargetMax);
- var game = new LeapFrogGame(target, _options);
- _logger.LogInformation("Target generated");
+    /// <summary>
+    /// Runs the primary loop that processes user guesses and updates game state until
+    /// the player wins or loses.
+    /// </summary>
+    /// <param name="game">The game instance maintaining state and rules.</param>
+    private void RunGameLoop(LeapFrogGame game)
+    {
+        while (true)
+        {
+            var (ok, guess) = ui.PromptGuess();
+            if (!ok)
+            {
+                logger.LogWarning(LogInvalidInput);
+                continue;
+            }
 
- _ui.ShowGreeting();
- _ui.ShowInstructions();
- RunGameLoop(game);
- }
+            logger.LogInformation(LogUserGuessReceivedTemplate, guess);
+            var result = game.ApplyGuess(guess);
+            logger.LogDebug(LogOutcomeDebugTemplate, result.Outcome,
+                result.Total, result.Difference, result.Attempts);
 
- private void RunGameLoop(LeapFrogGame game)
- {
- while (true)
- {
- var (ok, guess) = _ui.PromptGuess();
- if (!ok)
- {
- _logger.LogWarning("Invalid input provided by user");
- continue;
- }
-
- _logger.LogInformation("User guess received: {Guess}", guess);
- var result = game.ApplyGuess(guess);
- _logger.LogDebug("Outcome: {Outcome}, Total: {Total}, Diff: {Diff}, Attempts: {Attempts}", result.Outcome, result.Total, result.Difference, result.Attempts);
-
- switch (result.Outcome)
- {
- case GuessOutcome.Win:
- _ui.ShowWin();
- _logger.LogInformation("Game finished with outcome {Outcome}", result.Outcome);
- return;
- case GuessOutcome.Loss:
- _ui.ShowLoss();
- _logger.LogInformation("Game finished with outcome {Outcome}", result.Outcome);
- return;
- case GuessOutcome.Continue:
- default:
- _ui.ShowContinue(result.Total);
- break;
- }
- }
- }
+            switch (result.Outcome)
+            {
+                case GuessOutcome.Win:
+                    ui.ShowWin();
+                    logger.LogInformation(LogFinishedOutcomeTemplate, result.Outcome);
+                    return;
+                case GuessOutcome.Loss:
+                    ui.ShowLoss();
+                    logger.LogInformation(LogFinishedOutcomeTemplate, result.Outcome);
+                    return;
+                case GuessOutcome.Continue:
+                default:
+                    ui.ShowContinue(result.Total);
+                    break;
+            }
+        }
+    }
 }
