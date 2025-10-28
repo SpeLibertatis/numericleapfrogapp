@@ -1,4 +1,4 @@
-using NumericLeapFrog.Domain.Models;
+using NumericLeapFrog.Configuration.Options;
 using NumericLeapFrog.Infrastructure.Abstractions;
 using NumericLeapFrog.Infrastructure.Time;
 using NumericLeapFrog.UI;
@@ -11,8 +11,8 @@ public class ConsoleGameUIParsingTests
     public void PromptGuess_ReturnsFalse_On_Invalid()
     {
         var io = new BufferConsole("foo");
-        var ui = new ConsoleGameUI(io, new Typewriter(io, new GameOptions { TypewriterDelayMs = 0 }, new ThreadDelay()),
-            new FakeStrings());
+        var ui = new ConsoleGameUI(io, new Typewriter(io, new TypewriterOptions { DelayMs = 0 }, new ThreadDelay()),
+            new FakeStrings(), new UiOptions());
         var (ok, _) = ui.PromptGuess();
         Assert.False(ok);
     }
@@ -21,8 +21,8 @@ public class ConsoleGameUIParsingTests
     public void PromptGuess_ReturnsTrue_With_Value()
     {
         var io = new BufferConsole("42");
-        var ui = new ConsoleGameUI(io, new Typewriter(io, new GameOptions { TypewriterDelayMs = 0 }, new ThreadDelay()),
-            new FakeStrings());
+        var ui = new ConsoleGameUI(io, new Typewriter(io, new TypewriterOptions { DelayMs = 0 }, new ThreadDelay()),
+            new FakeStrings(), new UiOptions());
         var (ok, value) = ui.PromptGuess();
         Assert.True(ok);
         Assert.Equal(42, value);

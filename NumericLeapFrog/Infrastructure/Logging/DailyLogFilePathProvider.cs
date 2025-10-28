@@ -1,23 +1,24 @@
+using NumericLeapFrog.Configuration.Options;
+
 namespace NumericLeapFrog.Infrastructure.Logging;
 
 /// <summary>
-/// Provides a log file path that rolls daily based on the current UTC date.
+/// Provides a log file path that rolls daily based on configuration.
 /// </summary>
 /// <remarks>
-/// The file name format is <c>game-YYYYMMDD.log</c> and it is placed in <see cref="AppContext.BaseDirectory"/>.
-/// Using UTC avoids day-boundary issues across time zones.
+/// The file name format is <c>{prefix}-YYYYMMDD.log</c> and directory defaults to AppContext.BaseDirectory.
 /// </remarks>
-public sealed class DailyLogFilePathProvider : ILogFilePathProvider
+public sealed class DailyLogFilePathProvider(LoggingOptions options) : ILogFilePathProvider
 {
     /// <summary>
     /// Gets the absolute path to today's log file.
     /// </summary>
-    /// <returns>
-    /// A path combining <see cref="AppContext.BaseDirectory"/> and a daily rolling file name
-    /// (e.g., <c>game-20250131.log</c>).
-    /// </returns>
+    /// <returns>A path combining configured directory and a daily rolling file name.</returns>
     public string GetDailyLogFilePath()
     {
-        return Path.Combine(AppContext.BaseDirectory, $"game-{DateTime.UtcNow:yyyyMMdd}.log");
+        var dir = options.Directory ?? AppContext.BaseDirectory;
+        var now = options.UseUtcForRoll ? DateTime.UtcNow : DateTime.Now;
+        var prefix = string.IsNullOrWhiteSpace(options.FileNamePrefix) ? "game" : options.FileNamePrefix;
+        return Path.Combine(dir, $"{prefix}-{now:yyyyMMdd}.log");
     }
 }

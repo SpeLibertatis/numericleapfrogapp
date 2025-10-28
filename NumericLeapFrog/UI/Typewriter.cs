@@ -1,4 +1,4 @@
-using NumericLeapFrog.Domain.Models;
+using NumericLeapFrog.Configuration.Options;
 using NumericLeapFrog.Infrastructure.Abstractions;
 using NumericLeapFrog.Infrastructure.Time;
 
@@ -8,15 +8,15 @@ namespace NumericLeapFrog.UI;
 /// Renders text with a typewriter effect to a provided console.
 /// </summary>
 /// <param name="console">The console abstraction to write to.</param>
-/// <param name="options">Game options (uses <see cref="GameOptions.TypewriterDelayMs"/>).</param>
+/// <param name="options">Typewriter options (uses <see cref="TypewriterOptions.DelayMs"/>).</param>
 /// <param name="delay">Delay provider to space characters and enable testability.</param>
 /// <remarks>
 /// Each character is written with a fixed delay, in milliseconds, defined by
-/// <see cref="GameOptions.TypewriterDelayMs"/>. This type does not provide internal
+/// <see cref="TypewriterOptions.DelayMs"/>. This type does not provide internal
 /// synchronization; callers should ensure single-threaded access if required by
 /// the underlying <see cref="IConsole"/> implementation.
 /// </remarks>
-public sealed class Typewriter(IConsole console, GameOptions options, IDelay delay)
+public sealed class Typewriter(IConsole console, TypewriterOptions options, IDelay delay)
 {
  /// <summary>
  /// Writes text character-by-character without a trailing newline.
@@ -24,7 +24,7 @@ public sealed class Typewriter(IConsole console, GameOptions options, IDelay del
  /// <param name="text">The text to render.</param>
  /// <param name="ct">Optional cancellation token to stop rendering early.</param>
  /// <remarks>
- /// Inserts a delay of <see cref="GameOptions.TypewriterDelayMs"/> between each character.
+ /// Inserts a delay of <see cref="TypewriterOptions.DelayMs"/> between each character.
  /// If <paramref name="ct"/> is signaled, rendering stops and no newline is written.
  /// </remarks>
  public void TypeWrite(string text, CancellationToken ct = default)
@@ -32,7 +32,7 @@ public sealed class Typewriter(IConsole console, GameOptions options, IDelay del
  foreach (var ch in text)
  {
  console.Write(ch.ToString());
- delay.Delay(options.TypewriterDelayMs, ct);
+ delay.Delay(options.DelayMs, ct);
  }
  }
 

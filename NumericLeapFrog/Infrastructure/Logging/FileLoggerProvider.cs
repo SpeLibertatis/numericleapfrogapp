@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using NumericLeapFrog.Configuration.Options;
 
 namespace NumericLeapFrog.Infrastructure.Logging;
 
@@ -6,10 +7,11 @@ namespace NumericLeapFrog.Infrastructure.Logging;
 /// An <see cref="ILoggerProvider"/> that writes log entries to a single file.
 /// </summary>
 /// <param name="path">The absolute or relative file path where log entries are appended.</param>
+/// <param name="options">Logging options used for formatting.</param>
 /// <remarks>
 /// Writes are synchronized using a private lock to ensure thread-safe file access.
 /// </remarks>
-internal sealed class FileLoggerProvider(string path) : ILoggerProvider
+internal sealed class FileLoggerProvider(string path, LoggingOptions options) : ILoggerProvider
 {
     private readonly object _gate = new();
 
@@ -20,7 +22,7 @@ internal sealed class FileLoggerProvider(string path) : ILoggerProvider
     /// <returns>An <see cref="ILogger"/> instance backed by a file sink.</returns>
     public ILogger CreateLogger(string categoryName)
     {
-        return new FileLogger(path, _gate, categoryName);
+        return new FileLogger(path, _gate, categoryName, options.TimestampFormat);
     }
 
     /// <summary>
@@ -36,7 +38,8 @@ internal sealed class FileLoggerProvider(string path) : ILoggerProvider
     /// <param name="path">The file path to append log entries to.</param>
     /// <param name="gate">The synchronization object to protect concurrent writes.</param>
     /// <param name="category">The category name associated with this logger.</param>
-    private sealed class FileLogger(string path, object gate, string category) : ILogger
+    /// <param name="timestampFormat">Timestamp format string used for message timestamps.</param>
+    private sealed class FileLogger(string path, object gate, string category, string timestampFormat) : ILogger
     {
         /// <inheritdoc/>
         public IDisposable? BeginScope<TState>(TState state) where TState : notnull
@@ -66,7 +69,8 @@ internal sealed class FileLoggerProvider(string path) : ILoggerProvider
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception,
             Func<TState, Exception?, string> formatter)
         {
-            var line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} [{logLevel}] {category}: {formatter(state, exception)}";
+            var now = DateTime.Now; // wall-clock for logging display
+            var line = $"{now.ToString(timestampFormat)} [{logLevel}] {category}: {formatter(state, exception)}";
             if (exception != null) line += $"{Environment.NewLine}{exception}";
             lock (gate)
             {

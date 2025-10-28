@@ -1,3 +1,4 @@
+using NumericLeapFrog.Configuration.Options;
 using NumericLeapFrog.Infrastructure.Abstractions;
 
 namespace NumericLeapFrog.UI;
@@ -12,7 +13,7 @@ namespace NumericLeapFrog.UI;
 /// This implementation relies on <see cref="IConsole"/> and <see cref="Typewriter"/> to enable
 /// testability and a more engaging console experience. It implements <see cref="IGameUI"/>.
 /// </remarks>
-public sealed class ConsoleGameUI(IConsole console, Typewriter typer, IStrings strings) : IGameUI
+public sealed class ConsoleGameUI(IConsole console, Typewriter typer, IStrings strings, UiOptions uiOptions) : IGameUI
 {
  /// <summary>
  /// Displays the initial greeting message to the player.
@@ -98,6 +99,9 @@ public sealed class ConsoleGameUI(IConsole console, Typewriter typer, IStrings s
  /// </summary>
  public void PauseAtEnd()
  {
+ if (uiOptions.PauseAtEnd)
+ {
  console.ReadLine();
+ }
  }
 }
