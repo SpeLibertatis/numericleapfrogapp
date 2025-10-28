@@ -12,4 +12,9 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BusinessLogic\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

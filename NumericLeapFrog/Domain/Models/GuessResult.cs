@@ -1,4 +1,4 @@
-﻿namespace NumericLeapFrog.Domain.Models;
+namespace NumericLeapFrog.Domain.Models;
 
 /// <summary>
 /// Result of applying a guess to the game state.
