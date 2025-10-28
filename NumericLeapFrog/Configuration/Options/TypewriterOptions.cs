@@ -5,10 +5,10 @@ namespace NumericLeapFrog.Configuration.Options;
 /// </summary>
 public class TypewriterOptions
 {
- /// <summary>
- ///     Delay, in milliseconds, between characters when rendering.
- /// </summary>
- public int DelayMs { get; set; } = 20;
+    /// <summary>
+    ///     Delay, in milliseconds, between characters when rendering.
+    /// </summary>
+    public int DelayMs { get; set; } = 20;
 
     // Validation helpers
     internal static bool IsValid(TypewriterOptions? o)

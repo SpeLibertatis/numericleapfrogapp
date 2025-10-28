@@ -1,5 +1,9 @@
+#region
+
 using Microsoft.Extensions.Logging;
 using NumericLeapFrog.Configuration.Options;
+
+#endregion
 
 namespace NumericLeapFrog.Infrastructure.Logging;
 

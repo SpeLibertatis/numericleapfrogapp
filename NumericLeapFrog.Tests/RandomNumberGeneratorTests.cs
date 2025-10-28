@@ -1,4 +1,8 @@
+#region
+
 using NumericLeapFrog.Infrastructure.Randomness;
+
+#endregion
 
 namespace NumericLeapFrog.Tests;
 

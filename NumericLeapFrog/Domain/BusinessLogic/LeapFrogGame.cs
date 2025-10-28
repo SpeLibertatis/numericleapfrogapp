@@ -1,5 +1,9 @@
+#region
+
 using NumericLeapFrog.Configuration.Options;
 using NumericLeapFrog.Domain.Models;
+
+#endregion
 
 namespace NumericLeapFrog.Domain.BusinessLogic;
 

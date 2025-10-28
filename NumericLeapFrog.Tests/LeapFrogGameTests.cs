@@ -1,6 +1,10 @@
-using NumericLeapFrog.Domain.BusinessLogic;
+#region
+
 using NumericLeapFrog.Configuration.Options;
+using NumericLeapFrog.Domain.BusinessLogic;
 using NumericLeapFrog.Domain.Models;
+
+#endregion
 
 namespace NumericLeapFrog.Tests;
 

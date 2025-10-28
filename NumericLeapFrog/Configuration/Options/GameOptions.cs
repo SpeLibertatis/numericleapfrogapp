@@ -5,20 +5,20 @@ namespace NumericLeapFrog.Configuration.Options;
 /// </summary>
 public class GameOptions
 {
- /// <summary>
- ///     Inclusive minimum value for the target number.
- /// </summary>
- public int TargetMin { get; set; } = 1;
+    /// <summary>
+    ///     Inclusive minimum value for the target number.
+    /// </summary>
+    public int TargetMin { get; set; } = 1;
 
- /// <summary>
- ///     Exclusive maximum value for the target number.
- /// </summary>
- public int TargetMax { get; set; } = 100;
+    /// <summary>
+    ///     Exclusive maximum value for the target number.
+    /// </summary>
+    public int TargetMax { get; set; } = 100;
 
- /// <summary>
- ///     Threshold within which the player wins.
- /// </summary>
- public int Threshold { get; set; } = 5;
+    /// <summary>
+    ///     Threshold within which the player wins.
+    /// </summary>
+    public int Threshold { get; set; } = 5;
 
     // Validation helpers
     internal static bool IsValid(GameOptions? o)

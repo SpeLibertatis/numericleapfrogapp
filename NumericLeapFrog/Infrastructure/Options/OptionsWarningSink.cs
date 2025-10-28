@@ -1,22 +1,26 @@
+#region
+
 using System.Collections.Concurrent;
+
+#endregion
 
 namespace NumericLeapFrog.Infrastructure.Options;
 
 /// <summary>
-/// Thread-safe, in-memory implementation of <see cref="IOptionsWarningSink"/>.
+///     Thread-safe, in-memory implementation of <see cref="IOptionsWarningSink" />.
 /// </summary>
 /// <remarks>
-/// Uses a lock-free <see cref="ConcurrentQueue{T}"/> to collect warning messages from
-/// options validators and configuration code. Ordering is the enqueue order but is not
-/// guaranteed across threads. Designed to be registered as a singleton and drained
-/// during startup to emit warnings without failing the process.
+///     Uses a lock-free <see cref="ConcurrentQueue{T}" /> to collect warning messages from
+///     options validators and configuration code. Ordering is the enqueue order but is not
+///     guaranteed across threads. Designed to be registered as a singleton and drained
+///     during startup to emit warnings without failing the process.
 /// </remarks>
 public sealed class OptionsWarningSink : IOptionsWarningSink
 {
     private readonly ConcurrentQueue<string> _warnings = new();
 
     /// <summary>
-    /// Adds a non-empty warning message to the sink.
+    ///     Adds a non-empty warning message to the sink.
     /// </summary>
     /// <param name="message">The warning text to record.</param>
     public void Add(string message)
@@ -26,7 +30,7 @@ public sealed class OptionsWarningSink : IOptionsWarningSink
     }
 
     /// <summary>
-    /// Returns a snapshot of the currently recorded warnings without clearing them.
+    ///     Returns a snapshot of the currently recorded warnings without clearing them.
     /// </summary>
     /// <returns>An array copy of the queued warnings at the time of the call.</returns>
     public IReadOnlyList<string> Snapshot()
@@ -35,7 +39,7 @@ public sealed class OptionsWarningSink : IOptionsWarningSink
     }
 
     /// <summary>
-    /// Returns all currently recorded warnings and clears the sink.
+    ///     Returns all currently recorded warnings and clears the sink.
     /// </summary>
     /// <returns>A list of warnings drained from the queue.</returns>
     public IReadOnlyList<string> Drain()

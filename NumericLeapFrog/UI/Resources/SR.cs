@@ -1,4 +1,8 @@
+#region
+
 using System.Resources;
+
+#endregion
 
 namespace NumericLeapFrog.UI.Resources;
 

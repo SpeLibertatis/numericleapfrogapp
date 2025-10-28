@@ -1,5 +1,9 @@
+#region
+
 using Microsoft.Extensions.Options;
 using NumericLeapFrog.Configuration.Options;
+
+#endregion
 
 namespace NumericLeapFrog.Infrastructure.Options.Validation;
 
@@ -14,16 +18,16 @@ namespace NumericLeapFrog.Infrastructure.Options.Validation;
 /// </remarks>
 internal sealed class TypewriterOptionsValidator(IOptionsWarningSink sink) : IValidateOptions<TypewriterOptions>
 {
- /// <summary>
- ///     Validates the provided <paramref name="options" /> instance and records warnings for invalid values.
- /// </summary>
- /// <param name="name">Named options instance (unused).</param>
- /// <param name="options">The bound typewriter options to validate.</param>
- /// <returns>
- ///     <see cref="ValidateOptionsResult.Success" /> when valid; otherwise <see cref="ValidateOptionsResult.Skip" />
- ///     after emitting warnings to the sink. A null instance is treated as valid.
- /// </returns>
- public ValidateOptionsResult Validate(string? name, TypewriterOptions? options)
+    /// <summary>
+    ///     Validates the provided <paramref name="options" /> instance and records warnings for invalid values.
+    /// </summary>
+    /// <param name="name">Named options instance (unused).</param>
+    /// <param name="options">The bound typewriter options to validate.</param>
+    /// <returns>
+    ///     <see cref="ValidateOptionsResult.Success" /> when valid; otherwise <see cref="ValidateOptionsResult.Skip" />
+    ///     after emitting warnings to the sink. A null instance is treated as valid.
+    /// </returns>
+    public ValidateOptionsResult Validate(string? name, TypewriterOptions? options)
     {
         if (options is null || options.DelayMs >= 0)
             return ValidateOptionsResult.Success;

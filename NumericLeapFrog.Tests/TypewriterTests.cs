@@ -1,7 +1,11 @@
+#region
+
 using NumericLeapFrog.Configuration.Options;
 using NumericLeapFrog.Infrastructure.Abstractions;
 using NumericLeapFrog.Infrastructure.Time;
 using NumericLeapFrog.UI;
+
+#endregion
 
 namespace NumericLeapFrog.Tests;
 

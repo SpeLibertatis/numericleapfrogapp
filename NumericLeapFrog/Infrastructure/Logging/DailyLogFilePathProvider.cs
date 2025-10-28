@@ -1,4 +1,8 @@
+#region
+
 using NumericLeapFrog.Configuration.Options;
+
+#endregion
 
 namespace NumericLeapFrog.Infrastructure.Logging;
 

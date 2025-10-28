@@ -8,8 +8,8 @@ namespace NumericLeapFrog.Domain.BusinessLogic;
 /// </remarks>
 public interface IGameRunner
 {
- /// <summary>
- ///     Executes the game loop until the game completes.
- /// </summary>
- void Run();
+    /// <summary>
+    ///     Executes the game loop until the game completes.
+    /// </summary>
+    void Run();
 }

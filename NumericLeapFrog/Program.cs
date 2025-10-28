@@ -1,10 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿#region
+
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using NumericLeapFrog.Domain.BusinessLogic;
 using NumericLeapFrog.Infrastructure.Abstractions;
 using NumericLeapFrog.Infrastructure.Console;
 using NumericLeapFrog.Infrastructure.Logging;
+using NumericLeapFrog.Infrastructure.Options;
+using NumericLeapFrog.Infrastructure.Options.Validation;
 using NumericLeapFrog.Infrastructure.Time;
 using NumericLeapFrog.UI;
 using DomainSR = NumericLeapFrog.Domain.Resources.SR;
@@ -12,9 +17,8 @@ using GameConfigOptions = NumericLeapFrog.Configuration.Options.GameOptions;
 using TypewriterOptions = NumericLeapFrog.Configuration.Options.TypewriterOptions;
 using UiOptions = NumericLeapFrog.Configuration.Options.UiOptions;
 using LoggingOptions = NumericLeapFrog.Configuration.Options.LoggingOptions;
-using Microsoft.Extensions.Options;
-using NumericLeapFrog.Infrastructure.Options;
-using NumericLeapFrog.Infrastructure.Options.Validation;
+
+#endregion
 
 namespace NumericLeapFrog;
 
@@ -26,10 +30,10 @@ internal static class Program
 
         // Build configuration (optional appsettings.json + env vars with prefix)
         var config = new ConfigurationBuilder()
-            .SetBasePath(AppContext.BaseDirectory)
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            .AddEnvironmentVariables(prefix: "NUMERICLEAPFROG_")
-            .Build();
+                     .SetBasePath(AppContext.BaseDirectory)
+                     .AddJsonFile("appsettings.json", true, true)
+                     .AddEnvironmentVariables("NUMERICLEAPFROG_")
+                     .Build();
 
         // Warning sink for non-fatal validation messages
         services.AddSingleton<IOptionsWarningSink, OptionsWarningSink>();
@@ -57,7 +61,7 @@ internal static class Program
         {
             var logOpts = sp.GetRequiredService<LoggingOptions>();
             var pathProvider = sp.GetRequiredService<ILogFilePathProvider>();
-            var minLevel = Enum.TryParse<LogLevel>(logOpts.MinimumLevel, ignoreCase: true, out var parsed)
+            var minLevel = Enum.TryParse<LogLevel>(logOpts.MinimumLevel, true, out var parsed)
                 ? parsed
                 : LogLevel.Information;
             var loggerFactory = LoggerFactory.Create(builder =>
@@ -85,10 +89,7 @@ internal static class Program
 
         // Emit any options validation warnings and proceed
         var warnings = provider.GetRequiredService<IOptionsWarningSink>().Drain();
-        foreach (var w in warnings)
-        {
-            logger.LogWarning(w);
-        }
+        foreach (var w in warnings) logger.LogWarning(w);
 
         logger.LogInformation(DomainSR.AppStarting);
 

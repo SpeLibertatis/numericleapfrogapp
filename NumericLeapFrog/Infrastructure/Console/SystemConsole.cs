@@ -1,4 +1,8 @@
+#region
+
 using NumericLeapFrog.Infrastructure.Abstractions;
+
+#endregion
 
 namespace NumericLeapFrog.Infrastructure.Console;
 

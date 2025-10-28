@@ -1,8 +1,12 @@
+#region
+
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NumericLeapFrog.Domain.BusinessLogic;
 using NumericLeapFrog.Configuration.Options;
+using NumericLeapFrog.Domain.BusinessLogic;
 using NumericLeapFrog.UI;
+
+#endregion
 
 namespace NumericLeapFrog.Tests;
 
