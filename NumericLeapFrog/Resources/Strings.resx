@@ -63,7 +63,7 @@
  <value>Goal is to keep guessing numbers to guess what the computer picked.</value>
  </data>
  <data name="Instructions2" xml:space="preserve">
- <value>Each guess will be added to the last. If you come within3 of the number you win. Don't go over.</value>
+ <value>Each guess will be added to the last. If you come within 3 of the number you win. Don't go over.</value>
  </data>
  <data name="PromptGuess" xml:space="preserve">
  <value>Guess a number: </value>

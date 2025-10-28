@@ -27,12 +27,6 @@ internal static class Program
             {
                 builder
                     .SetMinimumLevel(LogLevel.Information)
-                    .AddSimpleConsole(options =>
-                    {
-                        options.TimestampFormat = "yyyy-MM-dd HH:mm:ss ";
-                        options.SingleLine = true;
-                        options.IncludeScopes = false;
-                    })
                     .AddProvider(new FileLoggerProvider(pathProvider.GetDailyLogFilePath()));
             });
             return loggerFactory.CreateLogger("NumericLeapFrog");
