@@ -3,7 +3,6 @@ using NumericLeapFrog.Infrastructure.Abstractions;
 using NumericLeapFrog.Infrastructure.Logging;
 using NumericLeapFrog.Infrastructure.Randomness;
 using NumericLeapFrog.UI;
-using NumericLeapFrog.UI.Resources;
 using NumericLeapFrog.Domain.BusinessLogic;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
@@ -46,10 +45,13 @@ internal static class Program
         var typer = new Typewriter(io);
         IRandomNumberGenerator rng = new RandomNumberGenerator();
 
+        IStrings strings = new ResourceStrings();
+        IGameUI ui = new ConsoleGameUI(io, typer, strings);
+
         // Generate a random target in the inclusive range [1,999]
         var target = rng.NextInclusive(1, 999);
         var game = new LeapFrogGame(target);
-        var runner = new GameRunner(io, typer, game, logger);
+        var runner = new GameRunner(ui, game, logger);
         logger.LogInformation("Target generated: {Target}", target);
 
         runner.Run();
