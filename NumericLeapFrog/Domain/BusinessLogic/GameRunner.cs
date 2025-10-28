@@ -1,12 +1,13 @@
 using Microsoft.Extensions.Logging;
 using NumericLeapFrog.Configuration.Options;
+using NumericLeapFrog.Domain.Models;
 using NumericLeapFrog.UI;
 using static NumericLeapFrog.Domain.Resources.SR;
 
 namespace NumericLeapFrog.Domain.BusinessLogic;
 
 /// <summary>
-/// Orchestrates the Numeric Leap Frog game flow.
+///     Orchestrates the Numeric Leap Frog game flow.
 /// </summary>
 /// <param name="ui">The user interface used to display messages and read input.</param>
 /// <param name="rng">Random number generator used to select the game target.</param>
@@ -16,8 +17,8 @@ public sealed class GameRunner(IGameUI ui, IRandomNumberGenerator rng, GameOptio
     : IGameRunner
 {
     /// <summary>
-    /// Executes the game by generating a target, greeting the player, showing instructions,
-    /// and running the main game loop until completion.
+    ///     Executes the game by generating a target, greeting the player, showing instructions,
+    ///     and running the main game loop until completion.
     /// </summary>
     public void Run()
     {
@@ -31,8 +32,8 @@ public sealed class GameRunner(IGameUI ui, IRandomNumberGenerator rng, GameOptio
     }
 
     /// <summary>
-    /// Runs the primary loop that processes user guesses and updates game state until
-    /// the player wins or loses.
+    ///     Runs the primary loop that processes user guesses and updates game state until
+    ///     the player wins or loses.
     /// </summary>
     /// <param name="game">The game instance maintaining state and rules.</param>
     private void RunGameLoop(LeapFrogGame game)
@@ -53,15 +54,15 @@ public sealed class GameRunner(IGameUI ui, IRandomNumberGenerator rng, GameOptio
 
             switch (result.Outcome)
             {
-                case NumericLeapFrog.Domain.Models.GuessOutcome.Win:
+                case GuessOutcome.Win:
                     ui.ShowWin();
                     logger.LogInformation(LogFinishedOutcomeTemplate, result.Outcome);
                     return;
-                case NumericLeapFrog.Domain.Models.GuessOutcome.Loss:
+                case GuessOutcome.Loss:
                     ui.ShowLoss();
                     logger.LogInformation(LogFinishedOutcomeTemplate, result.Outcome);
                     return;
-                case NumericLeapFrog.Domain.Models.GuessOutcome.Continue:
+                case GuessOutcome.Continue:
                 default:
                     ui.ShowContinue(result.Total);
                     break;
