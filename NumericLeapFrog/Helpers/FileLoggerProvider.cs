@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace NumericLeapFrog.Helpers;
+namespace NumericLeapFrog.Infrastructure.Logging;
 
 internal sealed class FileLoggerProvider : ILoggerProvider
 {

@@ -1,4 +1,4 @@
-﻿namespace NumericLeapFrog.Models;
+﻿namespace NumericLeapFrog.Domain.Models;
 
 /// <summary>
 ///     Possible outcomes after applying a guess.

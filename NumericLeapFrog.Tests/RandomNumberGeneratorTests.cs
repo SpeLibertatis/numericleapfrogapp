@@ -1,4 +1,4 @@
-using NumericLeapFrog.Helpers;
+using NumericLeapFrog.Infrastructure.Randomness;
 
 namespace NumericLeapFrog.Tests;
 

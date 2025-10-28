@@ -1,4 +1,4 @@
-﻿namespace NumericLeapFrog.Helpers;
+﻿namespace NumericLeapFrog.Infrastructure.Randomness;
 
 /// <summary>
 ///     Abstraction for generating random numbers.

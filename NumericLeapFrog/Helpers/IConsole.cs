@@ -1,4 +1,4 @@
-﻿namespace NumericLeapFrog.Helpers;
+﻿namespace NumericLeapFrog.Infrastructure.Abstractions;
 
 /// <summary>
 ///     Abstraction for console operations used by the application.

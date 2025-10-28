@@ -1,4 +1,5 @@
-using NumericLeapFrog.Helpers;
+using NumericLeapFrog.Infrastructure.Abstractions;
+using NumericLeapFrog.UI;
 
 namespace NumericLeapFrog.Tests;
 

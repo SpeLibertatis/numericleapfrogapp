@@ -1,4 +1,6 @@
-﻿namespace NumericLeapFrog.Helpers;
+﻿using NumericLeapFrog.Infrastructure.Abstractions;
+
+namespace NumericLeapFrog.UI;
 
 /// <summary>
 ///     Renders text with a typing effect to a provided console.

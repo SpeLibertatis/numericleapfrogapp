@@ -1,12 +1,15 @@
-﻿using Microsoft.Extensions.Logging;
-using NumericLeapFrog.BusinessLogic;
-using NumericLeapFrog.Helpers;
-using NumericLeapFrog.Models;
-using NumericLeapFrog.Resources;
+﻿using NumericLeapFrog.Domain.Models;
+using NumericLeapFrog.Infrastructure.Abstractions;
+using NumericLeapFrog.Infrastructure.Logging;
+using NumericLeapFrog.Infrastructure.Randomness;
+using NumericLeapFrog.UI;
+using NumericLeapFrog.UI.Resources;
+using NumericLeapFrog.Domain.BusinessLogic;
+using Microsoft.Extensions.Logging;
 using System.Globalization;
 using System.IO;
 
-namespace NumericLeapFrog;
+namespace NumericLeapFrog.Composition;
 
 /// <summary>
 ///     Application entry point and orchestration for the Numeric Leap Frog game.
@@ -39,7 +42,7 @@ internal static class Program
 
         logger.LogInformation("Application starting");
 
-        IConsole io = new SystemConsole();
+        IConsole io = new Infrastructure.Console.SystemConsole();
         var typer = new Typewriter(io);
         IRandomNumberGenerator rng = new RandomNumberGenerator();
 

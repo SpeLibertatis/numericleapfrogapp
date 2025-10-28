@@ -1,5 +1,5 @@
-using NumericLeapFrog.BusinessLogic;
-using NumericLeapFrog.Models;
+using NumericLeapFrog.Domain.BusinessLogic;
+using NumericLeapFrog.Domain.Models;
 
 namespace NumericLeapFrog.Tests;
 
@@ -12,7 +12,7 @@ public class LeapFrogGameTests
         var game = new LeapFrogGame(50);
         var r1 = game.ApplyGuess(47); // diff =3
         Assert.Equal(GameOutcome.Win, r1.Outcome);
-        Assert.Equal(50 - 47, r1.Difference);
+        Assert.Equal(50 -47, r1.Difference);
     }
 
     [Fact]

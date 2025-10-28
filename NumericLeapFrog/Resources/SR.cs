@@ -1,6 +1,6 @@
 using System.Resources;
 
-namespace NumericLeapFrog.Resources;
+namespace NumericLeapFrog.UI.Resources;
 
 /// <summary>
 ///     Strongly-typed resource accessor.

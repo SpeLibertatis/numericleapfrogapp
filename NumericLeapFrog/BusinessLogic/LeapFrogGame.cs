@@ -1,6 +1,6 @@
-﻿using NumericLeapFrog.Models;
+﻿using NumericLeapFrog.Domain.Models;
 
-namespace NumericLeapFrog.BusinessLogic;
+namespace NumericLeapFrog.Domain.BusinessLogic;
 
 /// <summary>
 ///     Core game rules and state for Numeric Leap Frog; independent of I/O.
@@ -26,8 +26,8 @@ public sealed class LeapFrogGame(int target, int threshold = 3)
         if (Math.Abs(diff) <= Threshold)
             return new GuessResult(GameOutcome.Win, Total, Target, diff);
 
-        return Total > Target ? 
-            new GuessResult(GameOutcome.Lose, Total, Target, diff) : 
+        return Total > Target ?
+            new GuessResult(GameOutcome.Lose, Total, Target, diff) :
             new GuessResult(GameOutcome.Continue, Total, Target, diff);
     }
 }

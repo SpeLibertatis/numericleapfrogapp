@@ -1,7 +1,7 @@
-﻿namespace NumericLeapFrog.Models;
+﻿namespace NumericLeapFrog.Domain.Models;
 
 /// <summary>
-///     Result of applying a guess to the game state.
+/// Result of applying a guess to the game state.
 /// </summary>
 /// <param name="Outcome">The game outcome after the guess.</param>
 /// <param name="Total">The running total after the guess.</param>

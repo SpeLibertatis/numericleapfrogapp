@@ -1,4 +1,4 @@
-﻿namespace NumericLeapFrog.Helpers;
+﻿namespace NumericLeapFrog.Infrastructure.Randomness;
 
 /// <summary>
 ///     Pseudorandom number generator implementation using <see cref="Random" />.
