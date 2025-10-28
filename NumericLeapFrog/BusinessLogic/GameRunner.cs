@@ -7,24 +7,30 @@ namespace NumericLeapFrog.Domain.BusinessLogic;
 public sealed class GameRunner : IGameRunner
 {
  private readonly IGameUI _ui;
- private readonly LeapFrogGame _game;
+ private readonly IRandomNumberGenerator _rng;
+ private readonly GameOptions _options;
  private readonly ILogger _logger;
 
- public GameRunner(IGameUI ui, LeapFrogGame game, ILogger logger)
+ public GameRunner(IGameUI ui, IRandomNumberGenerator rng, GameOptions options, ILogger logger)
  {
  _ui = ui;
- _game = game;
+ _rng = rng;
+ _options = options;
  _logger = logger;
  }
 
  public void Run()
  {
+ var target = _rng.Next(_options.TargetMin, _options.TargetMax);
+ var game = new LeapFrogGame(target, _options);
+ _logger.LogInformation("Target generated: {Target}", target);
+
  _ui.ShowGreeting();
  _ui.ShowInstructions();
- RunGameLoop();
+ RunGameLoop(game);
  }
 
- private void RunGameLoop()
+ private void RunGameLoop(LeapFrogGame game)
  {
  while (true)
  {
@@ -36,7 +42,7 @@ public sealed class GameRunner : IGameRunner
  }
 
  _logger.LogInformation("User guess received: {Guess}", guess);
- var result = _game.ApplyGuess(guess);
+ var result = game.ApplyGuess(guess);
  _logger.LogDebug("Outcome: {Outcome}, Total: {Total}, Target: {Target}", result.Outcome, result.Total, result.Target);
 
  switch (result.Outcome)

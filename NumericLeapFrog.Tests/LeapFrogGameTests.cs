@@ -8,8 +8,8 @@ public class LeapFrogGameTests
     [Fact]
     public void ApplyGuess_Win_WhenWithinThreshold()
     {
-        // target50, threshold default3
-        var game = new LeapFrogGame(50);
+        // target50, threshold default (from options)
+        var game = new LeapFrogGame(50, new GameOptions());
         var r1 = game.ApplyGuess(47); // diff =3
         Assert.Equal(GameOutcome.Win, r1.Outcome);
         Assert.Equal(50 -47, r1.Difference);
@@ -18,7 +18,7 @@ public class LeapFrogGameTests
     [Fact]
     public void ApplyGuess_Lose_WhenOverTarget()
     {
-        var game = new LeapFrogGame(30);
+        var game = new LeapFrogGame(30, new GameOptions());
         game.ApplyGuess(20);
         var r2 = game.ApplyGuess(15); // total35 >30
         Assert.Equal(GameOutcome.Lose, r2.Outcome);
@@ -28,7 +28,7 @@ public class LeapFrogGameTests
     [Fact]
     public void ApplyGuess_Continue_WhenUnderAndOutsideThreshold()
     {
-        var game = new LeapFrogGame(100);
+        var game = new LeapFrogGame(100, new GameOptions());
         var r1 = game.ApplyGuess(90); // diff =10
         Assert.Equal(GameOutcome.Continue, r1.Outcome);
         Assert.Equal(10, r1.Difference);

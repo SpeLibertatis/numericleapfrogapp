@@ -6,11 +6,11 @@ namespace NumericLeapFrog.Domain.BusinessLogic;
 ///     Core game rules and state for Numeric Leap Frog; independent of I/O.
 /// </summary>
 /// <param name="target">The target number to reach without exceeding.</param>
-/// <param name="threshold">The inclusive distance from target to count as a win.</param>
-public sealed class LeapFrogGame(int target, int threshold = 3)
+/// <param name="options">Game options to configure threshold.</param>
+public sealed class LeapFrogGame(int target, GameOptions options)
 {
     private int Target { get; } = target;
-    private int Threshold { get; } = threshold;
+    private int Threshold { get; } = options.Threshold;
     private int Total { get; set; }
 
     /// <summary>

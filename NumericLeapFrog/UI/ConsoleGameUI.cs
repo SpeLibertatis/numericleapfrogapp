@@ -12,14 +12,13 @@ public sealed class ConsoleGameUI(IConsole console, Typewriter typer, IStrings s
 
  public void ShowInstructions()
  {
- _typer.TypeWriteLine(_strings.Instructions1);
- _typer.TypeWriteLine(_strings.Instructions2);
+ _typer.TypeWriteLine(_strings.Instructions);
  _console.WriteLine(string.Empty);
  }
 
  public (bool ok, int guess) PromptGuess()
  {
- _typer.TypeWrite(_strings.PromptGuess);
+ _typer.TypeWrite(_strings.Prompt);
  var input = _console.ReadLine();
  if (!int.TryParse(input, out var value))
  {
@@ -40,13 +39,13 @@ public sealed class ConsoleGameUI(IConsole console, Typewriter typer, IStrings s
  public void ShowWin()
  {
  _console.WriteLine(string.Empty);
- _typer.TypeWriteLine(_strings.WinMessage);
+ _typer.TypeWriteLine(_strings.Win);
  }
 
  public void ShowLoss()
  {
  _console.WriteLine(string.Empty);
- _typer.TypeWriteLine(_strings.LoseMessage);
+ _typer.TypeWriteLine(_strings.Loss);
  }
 
  public void PauseAndClear()

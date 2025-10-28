@@ -1,7 +1,7 @@
 ﻿using NumericLeapFrog.Domain.Models;
 using NumericLeapFrog.Infrastructure.Abstractions;
 using NumericLeapFrog.Infrastructure.Logging;
-using NumericLeapFrog.Infrastructure.Randomness;
+using NumericLeapFrog.Infrastructure.Time;
 using NumericLeapFrog.UI;
 using NumericLeapFrog.Domain.BusinessLogic;
 using Microsoft.Extensions.Logging;
@@ -41,18 +41,17 @@ internal static class Program
 
         logger.LogInformation("Application starting");
 
+        var options = new GameOptions();
+
         IConsole io = new Infrastructure.Console.SystemConsole();
-        var typer = new Typewriter(io);
-        IRandomNumberGenerator rng = new RandomNumberGenerator();
+        IDelay delay = new ThreadDelay();
+        var typer = new Typewriter(io, options, delay);
 
         IStrings strings = new ResourceStrings();
         IGameUI ui = new ConsoleGameUI(io, typer, strings);
 
-        // Generate a random target in the inclusive range [1,999]
-        var target = rng.NextInclusive(1, 999);
-        var game = new LeapFrogGame(target);
-        var runner = new GameRunner(ui, game, logger);
-        logger.LogInformation("Target generated: {Target}", target);
+        IRandomNumberGenerator rng = new RandomNumberGenerator();
+        var runner = new GameRunner(ui, rng, options, logger);
 
         runner.Run();
 

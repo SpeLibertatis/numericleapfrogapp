@@ -1,5 +1,7 @@
 using NumericLeapFrog.Infrastructure.Abstractions;
 using NumericLeapFrog.UI;
+using NumericLeapFrog.Domain.Models;
+using NumericLeapFrog.Infrastructure.Time;
 
 namespace NumericLeapFrog.Tests;
 
@@ -9,7 +11,7 @@ public class TypewriterTests
     public void TypeWrite_WritesCharacters()
     {
         var buf = new BufferConsole();
-        var typer = new Typewriter(buf, 0);
+        var typer = new Typewriter(buf, new GameOptions { TypewriterDelayMs =0 }, new NoDelay());
         typer.TypeWrite("Hi");
         Assert.Equal(new[] { "H", "i" }, buf.Writes);
     }
@@ -18,7 +20,7 @@ public class TypewriterTests
     public void TypeWriteLine_AppendsNewline()
     {
         var buf = new BufferConsole();
-        var typer = new Typewriter(buf, 0);
+        var typer = new Typewriter(buf, new GameOptions { TypewriterDelayMs =0 }, new NoDelay());
         typer.TypeWriteLine("Hi");
         Assert.Equal(["H", "i", "\n"], buf.Writes.Select(w => w == "\n" || w.EndsWith("\n") ? "\n" : w));
     }
@@ -43,6 +45,13 @@ public class TypewriterTests
         }
 
         public void Clear()
+        {
+        }
+    }
+
+    private sealed class NoDelay : IDelay
+    {
+        public void Delay(int ms, CancellationToken ct = default)
         {
         }
     }
