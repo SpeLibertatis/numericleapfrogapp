@@ -46,8 +46,7 @@ public class GameRunnerTests
  [Fact]
  public void Run_WinPath_ShowsWin_AndStops()
  {
- // target50, guess47 -> diff=3 within default threshold5 => win
- var options = new GameOptions();
+ var options = new GameOptions { Threshold =3 };
  var rng = new FakeRng(50);
  var ui = new RecordingUI(new[] {47 });
  var logger = new NoopLogger();
@@ -66,8 +65,7 @@ public class GameRunnerTests
  [Fact]
  public void Run_LossPath_ShowsContinue_Then_Loss()
  {
- // target30, guesses20 then15 ->35>30 => loss
- var options = new GameOptions();
+ var options = new GameOptions { Threshold =3 };
  var rng = new FakeRng(30);
  var ui = new RecordingUI(new[] {20,15 });
  var logger = new NoopLogger();

@@ -17,7 +17,7 @@ public class LeapFrogGameTests
   [Fact]
   public void ApplyGuess_Lose_WhenOverTarget()
   {
-    var game = new LeapFrogGame(30, new GameOptions());
+    var game = new LeapFrogGame(30, new GameOptions { Threshold = 3 });
     game.ApplyGuess(20);
     var r2 = game.ApplyGuess(15); // total35 >30
     Assert.Equal(GuessOutcome.Loss, r2.Outcome);
