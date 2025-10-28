@@ -5,8 +5,6 @@ using NumericLeapFrog.Infrastructure.Time;
 using NumericLeapFrog.UI;
 using NumericLeapFrog.Domain.BusinessLogic;
 using Microsoft.Extensions.Logging;
-using System.Globalization;
-using System.IO;
 
 namespace NumericLeapFrog.Composition;
 
@@ -24,7 +22,8 @@ internal static class Program
     /// </remarks>
     public static void Main()
     {
-        // Configure standardized local logging under %LOCALAPPDATA%/NumericLeapFrog/logs/YYYY-MM-DD.log
+        ILogFilePathProvider logPathProvider = new DailyLogFilePathProvider();
+        var logPath = logPathProvider.GetDailyLogFilePath();
         using var loggerFactory = LoggerFactory.Create(builder =>
         {
             builder
@@ -35,7 +34,7 @@ internal static class Program
                     options.SingleLine = true;
                     options.IncludeScopes = false;
                 })
-                .AddProvider(new FileLoggerProvider(GetDailyLogFilePath()));
+                .AddProvider(new FileLoggerProvider(logPath));
         });
         var logger = loggerFactory.CreateLogger("NumericLeapFrog");
 
@@ -58,14 +57,5 @@ internal static class Program
         logger.LogInformation("Application exiting");
         // Final pause so the console does not close immediately after game ends
         io.ReadLine();
-    }
-
-    private static string GetDailyLogFilePath()
-    {
-        var baseDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        var appDir = Path.Combine(baseDir, "NumericLeapFrog", "logs");
-        Directory.CreateDirectory(appDir);
-        var fileName = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture) + ".log";
-        return Path.Combine(appDir, fileName);
     }
 }
