@@ -53,4 +53,9 @@ public sealed class ConsoleGameUI(IConsole console, Typewriter typer, IStrings s
  _console.ReadLine();
  _console.Clear();
  }
+
+ public void PauseAtEnd()
+ {
+ _console.ReadLine();
+ }
 }

@@ -9,4 +9,5 @@ public interface IGameUI
  void ShowWin();
  void ShowLoss();
  void PauseAndClear();
+ void PauseAtEnd();
 }

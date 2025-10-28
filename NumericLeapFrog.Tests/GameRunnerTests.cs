@@ -32,6 +32,7 @@ public class GameRunnerTests
  public void ShowWin() => Calls.Add("ShowWin");
  public void ShowLoss() => Calls.Add("ShowLoss");
  public void PauseAndClear() => Calls.Add("PauseAndClear");
+ public void PauseAtEnd() => Calls.Add("PauseAtEnd");
  }
 
  private sealed class NoopLogger : ILogger
