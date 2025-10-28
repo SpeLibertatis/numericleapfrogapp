@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using NumericLeapFrog.Domain.BusinessLogic;
 using NumericLeapFrog.Domain.Models;
 using NumericLeapFrog.UI;
@@ -10,7 +11,7 @@ public class GameRunnerTests
     [Fact]
     public void Run_WinPath_ShowsWin_AndStops()
     {
-        var options = new GameOptions { Threshold = 3 };
+        var options = Options.Create(new GameOptions { Threshold = 3 }).Value;
         var rng = new FakeRng(50);
         var ui = new RecordingUI([47]);
         var logger = new NoopLogger();
@@ -29,7 +30,7 @@ public class GameRunnerTests
     [Fact]
     public void Run_LossPath_ShowsContinue_Then_Loss()
     {
-        var options = new GameOptions { Threshold = 3 };
+        var options = Options.Create(new GameOptions { Threshold = 3 }).Value;
         var rng = new FakeRng(30);
         var ui = new RecordingUI([20, 15]);
         var logger = new NoopLogger();
