@@ -12,6 +12,7 @@ public sealed class LeapFrogGame(int target, GameOptions options)
     private int Target { get; } = target;
     private int Threshold { get; } = options.Threshold;
     private int Total { get; set; }
+    private int Attempts { get; set; }
 
     /// <summary>
     ///     Applies a player's guess to the running total and evaluates the outcome.
@@ -20,14 +21,15 @@ public sealed class LeapFrogGame(int target, GameOptions options)
     /// <returns>A <see cref="GuessResult" /> describing the new state and outcome.</returns>
     public GuessResult ApplyGuess(int guess)
     {
+        Attempts++;
         Total += guess;
         var diff = Target - Total; // positive => under, negative => over
 
         if (Math.Abs(diff) <= Threshold)
-            return new GuessResult(GameOutcome.Win, Total, Target, diff);
+            return new GuessResult(GuessOutcome.Win, Total, Attempts, diff);
 
         return Total > Target ?
-            new GuessResult(GameOutcome.Lose, Total, Target, diff) :
-            new GuessResult(GameOutcome.Continue, Total, Target, diff);
+            new GuessResult(GuessOutcome.Loss, Total, Attempts, diff) :
+            new GuessResult(GuessOutcome.Continue, Total, Attempts, diff);
     }
 }

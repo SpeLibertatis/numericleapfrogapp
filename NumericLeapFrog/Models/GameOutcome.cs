@@ -3,7 +3,7 @@
 /// <summary>
 ///     Possible outcomes after applying a guess.
 /// </summary>
-public enum GameOutcome
+public enum GuessOutcome
 {
     /// <summary>
     ///     The game should continue with further guesses.
@@ -18,5 +18,5 @@ public enum GameOutcome
     /// <summary>
     ///     The player lost (total exceeded the target).
     /// </summary>
-    Lose = 2
+    Loss = 2
 }
