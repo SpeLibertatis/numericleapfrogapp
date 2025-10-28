@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+ <xsd:schema id="root" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+ <xsd:element name="root" msdata:IsDataSet="true">
+ <xsd:complexType>
+ <xsd:choice maxOccurs="unbounded">
+ <xsd:element name="metadata">
+ <xsd:complexType>
+ <xsd:sequence>
+ <xsd:element name="value" type="xsd:string" minOccurs="0" />
+ </xsd:sequence>
+ <xsd:attribute name="name" use="required" type="xsd:string" />
+ <xsd:attribute name="type" type="xsd:string" />
+ <xsd:attribute name="mimetype" type="xsd:string" />
+ </xsd:complexType>
+ </xsd:element>
+ <xsd:element name="assembly">
+ <xsd:complexType>
+ <xsd:attribute name="alias" type="xsd:string" />
+ <xsd:attribute name="name" type="xsd:string" />
+ </xsd:complexType>
+ </xsd:element>
+ <xsd:element name="data">
+ <xsd:complexType>
+ <xsd:sequence>
+ <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+ <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+ </xsd:sequence>
+ <xsd:attribute name="name" type="xsd:string" use="required" />
+ <xsd:attribute name="type" type="xsd:string" />
+ <xsd:attribute name="mimetype" type="xsd:string" />
+ <xsd:attribute ref="xml:space" />
+ </xsd:complexType>
+ </xsd:element>
+ <xsd:element name="resheader">
+ <xsd:complexType>
+ <xsd:sequence>
+ <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+ </xsd:sequence>
+ <xsd:attribute name="name" type="xsd:string" use="required" />
+ </xsd:complexType>
+ </xsd:element>
+ </xsd:choice>
+ </xsd:complexType>
+ </xsd:element>
+ </xsd:schema>
+ <resheader name="resmimetype">
+ <value>text/microsoft-resx</value>
+ </resheader>
+ <resheader name="version">
+ <value>2.0</value>
+ </resheader>
+ <resheader name="reader">
+ <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+ </resheader>
+ <resheader name="writer">
+ <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+ </resheader>
+ <data name="Welcome" xml:space="preserve">
+ <value>Welcome to Numeric Leap Frog.</value>
+ </data>
+ <data name="Instructions1" xml:space="preserve">
+ <value>Goal is to keep guessing numbers to guess what the computer picked.</value>
+ </data>
+ <data name="Instructions2" xml:space="preserve">
+ <value>Each guess will be added to the last. If you come within3 of the number you win. Don't go over.</value>
+ </data>
+ <data name="PromptGuess" xml:space="preserve">
+ <value>Guess a number: </value>
+ </data>
+ <data name="InvalidNumber" xml:space="preserve">
+ <value>Please enter a valid whole number.</value>
+ </data>
+ <data name="WinMessage" xml:space="preserve">
+ <value>You're a winner!</value>
+ </data>
+ <data name="LoseMessage" xml:space="preserve">
+ <value>I'm sorry you lost. Come back soon and play again!</value>
+ </data>
+ <data name="ContinueMessage" xml:space="preserve">
+ <value>Not quite there yet, keep guessing.</value>
+ </data>
+ <data name="ContinuePrompt" xml:space="preserve">
+ <value>Press enter to continue.</value>
+ </data>
+ <data name="TotalSoFar" xml:space="preserve">
+ <value>Your total so far is: {0}</value>
+ </data>
+</root>
