@@ -1,4 +1,5 @@
 using NumericLeapFrog.Domain.BusinessLogic;
+using NumericLeapFrog.Configuration.Options;
 using NumericLeapFrog.Domain.Models;
 
 namespace NumericLeapFrog.Tests;

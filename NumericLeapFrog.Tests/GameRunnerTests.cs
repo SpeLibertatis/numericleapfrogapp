@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NumericLeapFrog.Domain.BusinessLogic;
-using NumericLeapFrog.Domain.Models;
+using NumericLeapFrog.Configuration.Options;
 using NumericLeapFrog.UI;
 
 namespace NumericLeapFrog.Tests;

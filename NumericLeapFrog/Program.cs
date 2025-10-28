@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using NumericLeapFrog.Domain.BusinessLogic;
-using NumericLeapFrog.Domain.Models;
 using NumericLeapFrog.Infrastructure.Abstractions;
 using NumericLeapFrog.Infrastructure.Console;
 using NumericLeapFrog.Infrastructure.Logging;
@@ -14,6 +13,8 @@ using TypewriterOptions = NumericLeapFrog.Configuration.Options.TypewriterOption
 using UiOptions = NumericLeapFrog.Configuration.Options.UiOptions;
 using LoggingOptions = NumericLeapFrog.Configuration.Options.LoggingOptions;
 using Microsoft.Extensions.Options;
+using NumericLeapFrog.Infrastructure.Options;
+using NumericLeapFrog.Infrastructure.Options.Validation;
 
 namespace NumericLeapFrog;
 
@@ -30,20 +31,25 @@ internal static class Program
             .AddEnvironmentVariables(prefix: "NUMERICLEAPFROG_")
             .Build();
 
+        // Warning sink for non-fatal validation messages
+        services.AddSingleton<IOptionsWarningSink, OptionsWarningSink>();
+
         // Bind options (if sections are absent, class defaults remain in effect)
         services.Configure<GameConfigOptions>(config.GetSection("Game"));
         services.Configure<TypewriterOptions>(config.GetSection("Typewriter"));
         services.Configure<UiOptions>(config.GetSection("UI"));
         services.Configure<LoggingOptions>(config.GetSection("Logging"));
 
+        // Validators: non-fatal, record warnings; invalid configs will be ignored by consumers favoring defaults
+        services.AddSingleton<IValidateOptions<GameConfigOptions>, GameOptionsValidator>();
+        services.AddSingleton<IValidateOptions<TypewriterOptions>, TypewriterOptionsValidator>();
+        services.AddSingleton<IValidateOptions<LoggingOptions>, LoggingOptionsValidator>();
+
         // Register unwrapped options for constructor injection
         services.AddSingleton(sp => sp.GetRequiredService<IOptions<GameConfigOptions>>().Value);
         services.AddSingleton(sp => sp.GetRequiredService<IOptions<TypewriterOptions>>().Value);
         services.AddSingleton(sp => sp.GetRequiredService<IOptions<UiOptions>>().Value);
         services.AddSingleton(sp => sp.GetRequiredService<IOptions<LoggingOptions>>().Value);
-
-        // Options (existing domain GameOptions object)
-        services.AddSingleton<GameOptions>();
 
         // Logging
         services.AddSingleton<ILogFilePathProvider, DailyLogFilePathProvider>();
@@ -76,6 +82,14 @@ internal static class Program
 
         var provider = services.BuildServiceProvider();
         var logger = provider.GetRequiredService<ILogger>();
+
+        // Emit any options validation warnings and proceed
+        var warnings = provider.GetRequiredService<IOptionsWarningSink>().Drain();
+        foreach (var w in warnings)
+        {
+            logger.LogWarning(w);
+        }
+
         logger.LogInformation(DomainSR.AppStarting);
 
         var runner = provider.GetRequiredService<IGameRunner>();

@@ -1,4 +1,4 @@
-using NumericLeapFrog.Domain.Models;
+using NumericLeapFrog.Configuration.Options;
 
 namespace NumericLeapFrog.Domain.BusinessLogic;
 
@@ -18,18 +18,18 @@ public sealed class LeapFrogGame(int target, GameOptions options)
  /// Applies a player's guess to the running total and evaluates the outcome.
  /// </summary>
  /// <param name="guess">The number to add to the running total.</param>
- /// <returns>A <see cref="GuessResult" /> describing the new state and outcome.</returns>
- public GuessResult ApplyGuess(int guess)
+ /// <returns>A <see cref="NumericLeapFrog.Domain.Models.GuessResult" /> describing the new state and outcome.</returns>
+ public NumericLeapFrog.Domain.Models.GuessResult ApplyGuess(int guess)
  {
  Attempts++;
  Total += guess;
  var diff = Target - Total; // positive => under, negative => over
 
  if (Math.Abs(diff) <= Threshold)
- return new GuessResult(GuessOutcome.Win, Total, Attempts, diff);
+ return new NumericLeapFrog.Domain.Models.GuessResult(NumericLeapFrog.Domain.Models.GuessOutcome.Win, Total, Attempts, diff);
 
  return Total > Target
- ? new GuessResult(GuessOutcome.Loss, Total, Attempts, diff)
- : new GuessResult(GuessOutcome.Continue, Total, Attempts, diff);
+ ? new NumericLeapFrog.Domain.Models.GuessResult(NumericLeapFrog.Domain.Models.GuessOutcome.Loss, Total, Attempts, diff)
+ : new NumericLeapFrog.Domain.Models.GuessResult(NumericLeapFrog.Domain.Models.GuessOutcome.Continue, Total, Attempts, diff);
  }
 }

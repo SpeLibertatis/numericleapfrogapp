@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging;
-using NumericLeapFrog.Domain.Models;
+using NumericLeapFrog.Configuration.Options;
 using NumericLeapFrog.UI;
 using static NumericLeapFrog.Domain.Resources.SR;
 
@@ -53,15 +53,15 @@ public sealed class GameRunner(IGameUI ui, IRandomNumberGenerator rng, GameOptio
 
             switch (result.Outcome)
             {
-                case GuessOutcome.Win:
+                case NumericLeapFrog.Domain.Models.GuessOutcome.Win:
                     ui.ShowWin();
                     logger.LogInformation(LogFinishedOutcomeTemplate, result.Outcome);
                     return;
-                case GuessOutcome.Loss:
+                case NumericLeapFrog.Domain.Models.GuessOutcome.Loss:
                     ui.ShowLoss();
                     logger.LogInformation(LogFinishedOutcomeTemplate, result.Outcome);
                     return;
-                case GuessOutcome.Continue:
+                case NumericLeapFrog.Domain.Models.GuessOutcome.Continue:
                 default:
                     ui.ShowContinue(result.Total);
                     break;
