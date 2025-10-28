@@ -1,0 +1,12 @@
+<Project>
+ <PropertyGroup>
+ <!-- Enable deterministic builds across all projects -->
+ <Deterministic>true</Deterministic>
+
+ <!-- Normalize absolute source paths for reproducible PDBs across machines -->
+ <PathMap>$(MSBuildThisFileDirectory)=/_/</PathMap>
+
+ <!-- When running in CI (CI env var present), enable stricter reproducibility defaults -->
+ <ContinuousIntegrationBuild Condition="'$(CI)' != ''">true</ContinuousIntegrationBuild>
+ </PropertyGroup>
+</Project>
