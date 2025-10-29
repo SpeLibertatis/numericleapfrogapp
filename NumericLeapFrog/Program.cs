@@ -32,6 +32,7 @@ internal static class Program
         var config = new ConfigurationBuilder()
                      .SetBasePath(AppContext.BaseDirectory)
                      .AddJsonFile("appsettings.json", true, true)
+                     // ReSharper disable once StringLiteralTypo
                      .AddEnvironmentVariables("NUMERICLEAPFROG_")
                      .Build();
 
@@ -89,7 +90,8 @@ internal static class Program
 
         // Emit any options validation warnings and proceed
         var warnings = provider.GetRequiredService<IOptionsWarningSink>().Drain();
-        foreach (var w in warnings) logger.LogWarning(w);
+        foreach (var w in warnings) 
+            logger.LogWarning(w);
 
         logger.LogInformation(DomainSR.AppStarting);
 

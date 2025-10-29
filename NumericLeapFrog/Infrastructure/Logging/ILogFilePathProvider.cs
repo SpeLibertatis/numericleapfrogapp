@@ -4,7 +4,7 @@ namespace NumericLeapFrog.Infrastructure.Logging;
 ///     Computes the destination path for application log files.
 /// </summary>
 /// <remarks>
-///     Implementations typically generate a file path that "rolls" daily (e.g., <c>prefix-YYYYMMDD.log</c>)
+///     Implementations typically generate a file path that "rolls" daily (e.g., <c>prefix-yyyyMMdd.log</c>)
 ///     in a configured directory. This interface is read-only: callers expect it to be pure, fast,
 ///     and thread-safe. It must not create files or write to disk; the logger will ensure the
 ///     directory exists before writing.

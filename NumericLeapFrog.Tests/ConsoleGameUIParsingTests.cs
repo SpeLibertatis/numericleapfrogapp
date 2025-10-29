@@ -35,16 +35,15 @@ public class ConsoleGameUIParsingTests
     private sealed class BufferConsole(params string[] inputs) : IConsole
     {
         private readonly Queue<string> _inputs = new(inputs);
-        public readonly List<string> Writes = [];
 
         public void Write(string text)
         {
-            Writes.Add(text);
+            // Intentionally no-op for tests
         }
 
         public void WriteLine(string text)
         {
-            Writes.Add(text + "\n");
+            // Intentionally no-op for tests
         }
 
         public string ReadLine()

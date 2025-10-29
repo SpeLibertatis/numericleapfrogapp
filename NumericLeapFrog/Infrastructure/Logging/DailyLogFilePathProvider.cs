@@ -10,7 +10,7 @@ namespace NumericLeapFrog.Infrastructure.Logging;
 ///     Provides a log file path that rolls daily based on configuration.
 /// </summary>
 /// <remarks>
-///     The file name format is <c>{prefix}-YYYYMMDD.log</c> and directory defaults to AppContext.BaseDirectory.
+///     The file name format is <c>{prefix}-yyyyMMdd.log</c> and directory defaults to AppContext.BaseDirectory.
 /// </remarks>
 public sealed class DailyLogFilePathProvider(LoggingOptions options) : ILogFilePathProvider
 {
