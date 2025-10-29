@@ -28,7 +28,7 @@ public sealed class GameRunner(IGameUI ui, IRandomNumberGenerator rng, GameOptio
     {
         var target = rng.Next(options.TargetMin, options.TargetMax);
         var game = new LeapFrogGame(target, options);
-        logger.LogInformation(LogTargetGenerated);
+        logger.LogInformation("{Message}", LogTargetGenerated);
 
         ui.ShowGreeting();
         ui.ShowInstructions();
@@ -47,7 +47,7 @@ public sealed class GameRunner(IGameUI ui, IRandomNumberGenerator rng, GameOptio
             var (ok, guess) = ui.PromptGuess();
             if (!ok)
             {
-                logger.LogWarning(LogInvalidInput);
+                logger.LogWarning("{Message}", LogInvalidInput);
                 continue;
             }
 

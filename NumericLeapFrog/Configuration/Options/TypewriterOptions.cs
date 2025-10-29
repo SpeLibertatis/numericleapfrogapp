@@ -20,6 +20,6 @@ public class TypewriterOptions
     {
         if (o is null) throw new ArgumentNullException(nameof(o));
         if (o.DelayMs < 0)
-            throw new ArgumentOutOfRangeException(nameof(o.DelayMs), "DelayMs must be non-negative.");
+            throw new ArgumentOutOfRangeException(nameof(o.DelayMs));
     }
 }

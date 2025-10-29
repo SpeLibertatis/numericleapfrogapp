@@ -24,7 +24,7 @@ public interface IGameUI
     /// </summary>
     /// <returns>
     ///     A tuple <c>(ok, guess)</c> where <c>ok</c> is true if parsing succeeded.
-    ///     When <c>ok</c> is true, <c>guess</c> contains the parsed value; otherwise it is0.
+    ///     When <c>ok</c> is true, <c>guess</c> contains the parsed value; otherwise it is 0.
     /// </returns>
     (bool ok, int guess) PromptGuess();
 

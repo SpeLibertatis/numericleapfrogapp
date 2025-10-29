@@ -10,6 +10,7 @@ using NumericLeapFrog.Infrastructure.Console;
 using NumericLeapFrog.Infrastructure.Logging;
 using NumericLeapFrog.Infrastructure.Options;
 using NumericLeapFrog.Infrastructure.Options.Validation;
+using NumericLeapFrog.Infrastructure.Options.PostConfigure;
 using NumericLeapFrog.Infrastructure.Time;
 using NumericLeapFrog.UI;
 using DomainSR = NumericLeapFrog.Domain.Resources.SR;
@@ -49,6 +50,8 @@ internal static class Program
         services.AddSingleton<IValidateOptions<GameConfigOptions>, GameOptionsValidator>();
         services.AddSingleton<IValidateOptions<TypewriterOptions>, TypewriterOptionsValidator>();
         services.AddSingleton<IValidateOptions<LoggingOptions>, LoggingOptionsValidator>();
+        // Post-configure safety net to normalize invalid combinations without throwing
+        services.AddSingleton<IPostConfigureOptions<GameConfigOptions>, GameOptionsPostConfigure>();
 
         // Register unwrapped options for constructor injection
         services.AddSingleton(sp => sp.GetRequiredService<IOptions<GameConfigOptions>>().Value);
@@ -90,15 +93,14 @@ internal static class Program
 
         // Emit any options validation warnings and proceed
         var warnings = provider.GetRequiredService<IOptionsWarningSink>().Drain();
-        foreach (var w in warnings) 
-            logger.LogWarning(w);
+        foreach (var w in warnings) logger.LogWarning("{Message}", w);
 
-        logger.LogInformation(DomainSR.AppStarting);
+        logger.LogInformation("{Message}", DomainSR.AppStarting);
 
         var runner = provider.GetRequiredService<IGameRunner>();
         runner.Run();
 
-        logger.LogInformation(DomainSR.AppExiting);
+        logger.LogInformation("{Message}", DomainSR.AppExiting);
         provider.GetRequiredService<IGameUI>().PauseAtEnd();
     }
 }

@@ -13,7 +13,7 @@ public class LoggingOptions
     /// <summary>
     ///     Directory for log files. Null uses AppContext.BaseDirectory.
     /// </summary>
-    public string? Directory { get; set; } = null;
+    public string? Directory { get; set; }
 
     /// <summary>
     ///     File name prefix for log files.
@@ -52,8 +52,8 @@ public class LoggingOptions
     {
         if (o is null) throw new ArgumentNullException(nameof(o));
         if (string.IsNullOrWhiteSpace(o.FileNamePrefix))
-            throw new ArgumentException("FileNamePrefix must be non-empty.", nameof(o.FileNamePrefix));
+            throw new ArgumentException(null, nameof(o.FileNamePrefix));
         if (string.IsNullOrEmpty(o.TimestampFormat))
-            throw new ArgumentException("TimestampFormat must be provided.", nameof(o.TimestampFormat));
+            throw new ArgumentException(null, nameof(o.TimestampFormat));
     }
 }

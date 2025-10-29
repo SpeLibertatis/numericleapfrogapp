@@ -30,6 +30,6 @@ public class GameOptions
     {
         if (o is null) throw new ArgumentNullException(nameof(o));
         if (o.TargetMin > o.TargetMax)
-            throw new ArgumentException("TargetMin must be less than or equal to TargetMax.", nameof(o));
+            throw new ArgumentException("{Message}", nameof(o));
     }
 }
