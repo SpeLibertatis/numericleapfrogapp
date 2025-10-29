@@ -96,11 +96,6 @@ public class GameRunnerTests
             Calls.Add("ShowLoss");
         }
 
-        public void PauseAndClear()
-        {
-            Calls.Add("PauseAndClear");
-        }
-
         public void PauseAtEnd()
         {
             Calls.Add("PauseAtEnd");

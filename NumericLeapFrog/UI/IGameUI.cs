@@ -45,11 +45,6 @@ public interface IGameUI
     void ShowLoss();
 
     /// <summary>
-    ///     Waits for user acknowledgement and then clears the UI surface.
-    /// </summary>
-    void PauseAndClear();
-
-    /// <summary>
     ///     Waits for user acknowledgement at the end of the game.
     /// </summary>
     void PauseAtEnd();

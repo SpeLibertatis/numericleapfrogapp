@@ -33,34 +33,6 @@ internal static class SR
     public static string LogInvalidInput => _rm.GetString("LogInvalidInput")!;
 
     /// <summary>
-    ///     Template used to log a received user guess.
-    /// </summary>
-    /// <value>
-    ///     Resource key: <c>LogUserGuessReceivedTemplate</c>.
-    ///     Placeholders: <c>{0}</c> = the integer guess provided by the user.
-    /// </value>
-    public static string LogUserGuessReceivedTemplate => _rm.GetString("LogUserGuessReceivedTemplate")!;
-
-    /// <summary>
-    ///     Debug-level template describing the outcome after applying a guess.
-    /// </summary>
-    /// <value>
-    ///     Resource key: <c>LogOutcomeDebugTemplate</c>.
-    ///     Placeholders: <c>{0}</c> = outcome enum; <c>{1}</c> = total; <c>{2}</c> = difference (target - total);
-    ///     <c>{3}</c> = attempts count.
-    /// </value>
-    public static string LogOutcomeDebugTemplate => _rm.GetString("LogOutcomeDebugTemplate")!;
-
-    /// <summary>
-    ///     Informational template emitted when the game finishes (win or loss).
-    /// </summary>
-    /// <value>
-    ///     Resource key: <c>LogFinishedOutcomeTemplate</c>.
-    ///     Placeholders: <c>{0}</c> = final outcome.
-    /// </value>
-    public static string LogFinishedOutcomeTemplate => _rm.GetString("LogFinishedOutcomeTemplate")!;
-
-    /// <summary>
     ///     Informational message written when the application is starting up.
     /// </summary>
     /// <value>Resource key: <c>AppStarting</c>.</value>

@@ -18,12 +18,6 @@ public interface IOptionsWarningSink
     void Add(string message);
 
     /// <summary>
-    ///     Returns a point-in-time copy of the currently recorded warnings without clearing them.
-    /// </summary>
-    /// <returns>An immutable snapshot of warnings recorded so far (order unspecified).</returns>
-    IReadOnlyList<string> Snapshot();
-
-    /// <summary>
     ///     Returns all currently recorded warnings and clears the sink.
     /// </summary>
     /// <returns>The collected warnings at the time of the call (order unspecified).</returns>

@@ -91,7 +91,7 @@ public sealed class ConsoleGameUI(IConsole console, Typewriter typer, IStrings s
     /// <summary>
     ///     Waits for the user to press Enter and then clears the console.
     /// </summary>
-    public void PauseAndClear()
+    private void PauseAndClear()
     {
         console.ReadLine();
         console.Clear();

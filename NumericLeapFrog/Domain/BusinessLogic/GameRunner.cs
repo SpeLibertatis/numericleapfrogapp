@@ -51,20 +51,21 @@ public sealed class GameRunner(IGameUI ui, IRandomNumberGenerator rng, GameOptio
                 continue;
             }
 
-            logger.LogInformation(LogUserGuessReceivedTemplate, guess);
+            // Use constant templates for logging to satisfy analyzers.
+            logger.LogInformation("User guess received: {Guess}", guess);
             var result = game.ApplyGuess(guess);
-            logger.LogDebug(LogOutcomeDebugTemplate, result.Outcome,
-                result.Total, result.Difference, result.Attempts);
+            logger.LogDebug("Outcome={Outcome} Total={Total} Difference={Difference} Attempts={Attempts}",
+                result.Outcome, result.Total, result.Difference, result.Attempts);
 
             switch (result.Outcome)
             {
                 case GuessOutcome.Win:
                     ui.ShowWin();
-                    logger.LogInformation(LogFinishedOutcomeTemplate, result.Outcome);
+                    logger.LogInformation("Finished with outcome {Outcome}", result.Outcome);
                     return;
                 case GuessOutcome.Loss:
                     ui.ShowLoss();
-                    logger.LogInformation(LogFinishedOutcomeTemplate, result.Outcome);
+                    logger.LogInformation("Finished with outcome {Outcome}", result.Outcome);
                     return;
                 case GuessOutcome.Continue:
                 default:
