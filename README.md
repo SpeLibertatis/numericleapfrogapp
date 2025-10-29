@@ -134,7 +134,7 @@ graph LR
  N -->|inject| R[Typewriter]
  end
 
- Q --> S[Log File<br/>(daily-rolled)]
+ Q --> S[Log File - daily rolled]
 ```
 
 
